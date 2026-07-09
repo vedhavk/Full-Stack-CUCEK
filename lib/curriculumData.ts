@@ -40,11 +40,17 @@ export interface WeekProject {
   liveDemoRequired: boolean;
 }
 
+export interface WeekTrack {
+  label: string;   // e.g. "Node.js", "FastAPI"
+  lessons: Lesson[];
+}
+
 export interface Week {
   id: number;
   title: string;
   description: string;
-  lessons: Lesson[];
+  lessons: Lesson[];        // default / first-tab lessons
+  tracks?: WeekTrack[];     // optional alternative tracks (triggers tab UI)
   checkpoints: Checkpoint[];
   weekProject: WeekProject;
 }
@@ -283,6 +289,171 @@ export const curriculumData: Week[] = [
         resources: [
           { name: "PostgreSQL Tutorial", url: "https://www.postgresqltutorial.com/" },
           { name: "Prisma Schema Guide", url: "https://www.prisma.io/docs/concepts/components/prisma-schema" }
+        ]
+      }
+    ],
+    tracks: [
+      {
+        label: "Node.js",
+        lessons: [
+          {
+            id: "w2-d1",
+            day: 1,
+            title: "Node.js & Express Foundations",
+            description: "Set up the backend runtime. Create custom servers with Express.js, understand middleware cascades, request/response cycles, and file system modules.",
+            duration: 60,
+            videos: [
+              { id: "fBNz5xF-Kx4", label: "Part 1" },
+              { id: "CnH3kAXSrmU", label: "Part 2" }
+            ],
+            transcripts: [
+              { url: "/transcripts/w2-d11.pdf", label: "Part 1 Transcript" },
+              { url: "/transcripts/w2-d12.pdf", label: "Part 2 Transcript" }
+            ],
+            resources: [
+              { name: "Node.js Dev Guide", url: "https://nodejs.org/en/docs" },
+              { name: "Express.js Routing Guide", url: "https://expressjs.com/en/guide/routing.html" }
+            ]
+          },
+          {
+            id: "w2-d2",
+            day: 2,
+            title: "Designing RESTful APIs",
+            description: "Implement API design standards. Use correct HTTP status codes, method verbs (GET, POST, PUT, DELETE), handle request bodies, parameters, and query schemas.",
+            duration: 60,
+            videos: [{ id: "7YcW25PHnAA" }],
+            transcripts: [{ url: "/transcripts/w2-d2.pdf" }],
+            resources: [
+              { name: "RESTful API Design Best Practices", url: "https://restfulapi.net/" }
+            ]
+          },
+          {
+            id: "w2-d3",
+            day: 3,
+            title: "JSON Web Tokens (JWT) Auth",
+            description: "Secure your backend. Implement stateless authentication using JWTs, handle signature verification, configure authorization headers, and set token lifetimes.",
+            duration: 60,
+            videos: [{ id: "favjC6EKFgw" }],
+            transcripts: [{ url: "/transcripts/w2-d3.pdf" }],
+            resources: [
+              { name: "JWT.io Introduction", url: "https://jwt.io/introduction" },
+              { name: "OWASP Auth Cheat Sheet", url: "https://cheatsheetseries.owasp.org/cheatsheets/Authentication_Cheat_Sheet.html" }
+            ]
+          },
+          {
+            id: "w2-d4",
+            day: 4,
+            title: "Redis In-Memory Cache",
+            description: "Optimize server read speeds. Set up Redis key-value storage, write caching middleware, configure expirations (TTL), and handle cache-invalidation strategies.",
+            duration: 45,
+            videos: [{ id: "jgpVdJB2sKQ" }],
+            transcripts: [{ url: "/transcripts/w2-d4.pdf" }],
+            resources: [
+              { name: "Redis Developer Hub", url: "https://developer.redis.com/" }
+            ]
+          },
+          {
+            id: "w2-d5",
+            day: 5,
+            title: "Linux Command Line Basics",
+            description: "Acquire sysadmin comfort. Navigate filesystems, manage system processes, adjust file permissions (chmod, chown), and execute basic SSH commands.",
+            duration: 45,
+            videos: [{ id: "ZtqBQ68cfJc" }],
+            transcripts: [{ url: "/transcripts/w2-d5.pdf" }],
+            resources: [
+              { name: "Linux Journey tutorial", url: "https://linuxjourney.com/" }
+            ]
+          },
+          {
+            id: "w2-d6",
+            day: 6,
+            title: "Relational DBs & PostgreSQL",
+            description: "Structure persistent storage. Design relational schemas, draft standard SQL queries (joins, indexes), connect clients, and manage connection pools.",
+            duration: 75,
+            videos: [{ id: "u3Xyw6DXm_o" }],
+            transcripts: [{ url: "/transcripts/w2-d6.pdf" }],
+            resources: [
+              { name: "PostgreSQL Tutorial", url: "https://www.postgresqltutorial.com/" },
+              { name: "Prisma Schema Guide", url: "https://www.prisma.io/docs/concepts/components/prisma-schema" }
+            ]
+          }
+        ]
+      },
+      {
+        label: "FastAPI",
+        lessons: [
+          {
+            id: "w2-fa-d1",
+            day: 1,
+            title: "FastAPI Fundamentals",
+            description: "Get started with FastAPI, Python's high-performance async web framework. Learn path operations, query parameters, request bodies, and automatic OpenAPI documentation generation.",
+            duration: 60,
+            videos: [{ id: "8TMQcRcBnW8" }],
+            resources: [
+              { name: "FastAPI Official Docs", url: "https://fastapi.tiangolo.com/" },
+              { name: "FastAPI Tutorial", url: "https://fastapi.tiangolo.com/tutorial/" }
+            ]
+          },
+          {
+            id: "w2-fa-d2",
+            day: 2,
+            title: "Pydantic & Data Validation",
+            description: "Master Pydantic v2 for robust data validation and serialization. Define schemas with type hints, use validators, handle nested models, and leverage settings management.",
+            duration: 60,
+            videos: [{ id: "9GHxnttXxrA" }],
+            resources: [
+              { name: "Pydantic Docs", url: "https://docs.pydantic.dev/" },
+              { name: "FastAPI Request Body", url: "https://fastapi.tiangolo.com/tutorial/body/" }
+            ]
+          },
+          {
+            id: "w2-fa-d3",
+            day: 3,
+            title: "SQLAlchemy ORM & Alembic",
+            description: "Connect FastAPI to a relational database using SQLAlchemy 2.0 async ORM. Define models, run migrations with Alembic, and manage database sessions safely across requests.",
+            duration: 75,
+            videos: [{ id: "e8NnDz8uT7o" }],
+            resources: [
+              { name: "SQLAlchemy Docs", url: "https://docs.sqlalchemy.org/" },
+              { name: "Alembic Migration Guide", url: "https://alembic.sqlalchemy.org/en/latest/tutorial.html" }
+            ]
+          },
+          {
+            id: "w2-fa-d4",
+            day: 4,
+            title: "JWT Authentication with OAuth2",
+            description: "Implement secure stateless authentication in FastAPI using OAuth2 password flow and JWTs. Use dependency injection for protected routes, handle token expiry, and hash passwords with passlib.",
+            duration: 60,
+            videos: [{ id: "8-5othzDPPQ" }],
+            resources: [
+              { name: "FastAPI Security Guide", url: "https://fastapi.tiangolo.com/tutorial/security/" },
+              { name: "JWT.io Introduction", url: "https://jwt.io/introduction" }
+            ]
+          },
+          {
+            id: "w2-fa-d5",
+            day: 5,
+            title: "Redis Caching with aioredis",
+            description: "Integrate Redis into a FastAPI application for high-speed caching. Use aioredis for async read/write operations, implement TTL-based cache expiry, and write cache-invalidation middleware.",
+            duration: 45,
+            videos: [{ id: "3BMuCJTxYh0" }],
+            resources: [
+              { name: "aioredis Docs", url: "https://aioredis.readthedocs.io/" },
+              { name: "Redis Developer Hub", url: "https://developer.redis.com/" }
+            ]
+          },
+          {
+            id: "w2-fa-d6",
+            day: 6,
+            title: "Async I/O & Background Tasks",
+            description: "Unlock FastAPI's full async potential. Write truly non-blocking endpoints with async/await, offload work using BackgroundTasks, and manage concurrency with asyncio for high-throughput APIs.",
+            duration: 60,
+            videos: [{ id: "2JPDt-Jp6fM" }],
+            resources: [
+              { name: "FastAPI Async Docs", url: "https://fastapi.tiangolo.com/async/" },
+              { name: "Python asyncio Docs", url: "https://docs.python.org/3/library/asyncio.html" }
+            ]
+          }
         ]
       }
     ],

@@ -2,7 +2,7 @@
  * Prisma 7 singleton with better-sqlite3 adapter.
  * Import `prisma` from this file in all server-side API routes.
  */
-import { PrismaClient } from "@/lib/generated/prisma/client";
+import { PrismaClient } from "./generated/prisma/client";
 import { PrismaBetterSqlite3 } from "@prisma/adapter-better-sqlite3";
 import path from "path";
 

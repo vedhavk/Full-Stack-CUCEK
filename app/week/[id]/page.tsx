@@ -9,6 +9,7 @@ import LessonRow from "@/components/LessonRow";
 import { useApp } from "@/context/AppContext";
 import { curriculumData } from "@/lib/curriculumData";
 import { ArrowLeft, BookOpen, CheckSquare, Award, Upload, GitBranch, Globe, FileText, CheckCircle2, Trash2, ExternalLink } from "lucide-react";
+import type { Lesson } from "@/lib/curriculumData";
 
 export default function WeekModulePage() {
   const params = useParams();
@@ -29,6 +30,7 @@ export default function WeekModulePage() {
   const [liveDemoUrl, setLiveDemoUrl] = useState("");
   const [notes, setNotes] = useState("");
   const [submitting, setSubmitting] = useState(false);
+  const [activeTrackIndex, setActiveTrackIndex] = useState(0);
 
   const weekId = Number(params.id);
   const week = curriculumData.find((w) => w.id === weekId);
@@ -57,8 +59,15 @@ export default function WeekModulePage() {
   }
 
   const progress = getWeekProgress(week.id);
-  const completedLessonsCount = week.lessons.filter((l) => completedLessonIds.includes(l.id)).length;
-  const totalLessonsCount = week.lessons.length;
+
+  // If this week has multiple tracks, derive the active lesson set from the selected track.
+  // Otherwise fall back to week.lessons.
+  const activeTrackLessons: Lesson[] = week.tracks
+    ? (week.tracks[activeTrackIndex]?.lessons ?? week.lessons)
+    : week.lessons;
+
+  const completedLessonsCount = activeTrackLessons.filter((l) => completedLessonIds.includes(l.id)).length;
+  const totalLessonsCount = activeTrackLessons.length;
 
   return (
     <div className="flex flex-col min-h-screen bg-bg-base">
@@ -115,13 +124,37 @@ export default function WeekModulePage() {
               </div>
             </div>
 
+            {/* ── Track Tabs (only shown for weeks with multiple tracks) ── */}
+            {week.tracks && week.tracks.length > 1 && (
+              <div className="flex items-center gap-1 border-b border-border-custom/50 mb-1">
+                {week.tracks.map((track, idx) => (
+                  <button
+                    key={track.label}
+                    id={`track-tab-${track.label.toLowerCase().replace(/[^a-z0-9]/g, "-")}-w${week.id}`}
+                    onClick={() => setActiveTrackIndex(idx)}
+                    className={`relative px-4 py-2.5 text-xs font-semibold transition-colors cursor-pointer ${
+                      activeTrackIndex === idx
+                        ? "text-accent-custom"
+                        : "text-text-secondary hover:text-text-primary"
+                    }`}
+                  >
+                    {track.label}
+                    {/* active indicator bar */}
+                    {activeTrackIndex === idx && (
+                      <span className="absolute bottom-0 left-0 right-0 h-0.5 rounded-full bg-accent-custom" />
+                    )}
+                  </button>
+                ))}
+              </div>
+            )}
+
             {/* Day by Day Lessons List */}
             <div className="space-y-4">
               <h3 className="font-display text-lg text-text-primary">
                 Daily Lessons Guide
               </h3>
               <div className="space-y-3">
-                {week.lessons.map((lesson) => (
+                {activeTrackLessons.map((lesson) => (
                   <LessonRow
                     key={lesson.id}
                     lesson={lesson}
