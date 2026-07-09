@@ -29,6 +29,7 @@ export const metadata: Metadata = {
 };
 
 import { AppProvider } from "@/context/AppContext";
+import AuthSessionProvider from "@/components/AuthSessionProvider";
 
 export default function RootLayout({
   children,
@@ -41,7 +42,9 @@ export default function RootLayout({
       className={`${dmSerif.variable} ${dmSans.variable} ${jetbrainsMono.variable} h-full`}
     >
       <body className="min-h-full flex flex-col bg-bg-base text-text-primary antialiased font-sans">
-        <AppProvider>{children}</AppProvider>
+        <AuthSessionProvider>
+          <AppProvider>{children}</AppProvider>
+        </AuthSessionProvider>
       </body>
     </html>
   );

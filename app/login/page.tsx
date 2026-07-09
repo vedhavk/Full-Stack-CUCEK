@@ -21,11 +21,8 @@ export default function LoginPage() {
     setError("");
     setLoading(true);
     try {
-      // Mock network latency
-      await new Promise((resolve) => setTimeout(resolve, 800));
-      await login(email);
-    } catch (err) {
-      setError("Invalid credentials. Please try again.");
+      const result = await login(email, password);
+      if (!result.ok) setError(result.error ?? "Invalid credentials. Please try again.");
     } finally {
       setLoading(false);
     }
@@ -56,7 +53,7 @@ export default function LoginPage() {
                 {error}
               </div>
             )}
-            
+
             <div>
               <label htmlFor="email" className="block text-xs font-semibold uppercase tracking-wider text-text-secondary mb-1.5">
                 Email Address
@@ -74,11 +71,9 @@ export default function LoginPage() {
             </div>
 
             <div>
-              <div className="flex justify-between items-center mb-1.5">
-                <label htmlFor="password" className="block text-xs font-semibold uppercase tracking-wider text-text-secondary">
-                  Password
-                </label>
-              </div>
+              <label htmlFor="password" className="block text-xs font-semibold uppercase tracking-wider text-text-secondary mb-1.5">
+                Password
+              </label>
               <input
                 id="password"
                 name="password"
@@ -99,7 +94,7 @@ export default function LoginPage() {
               {loading ? (
                 <>
                   <Loader2 className="h-4 w-4 animate-spin" />
-                  Authenticating...
+                  Signing in...
                 </>
               ) : (
                 <>

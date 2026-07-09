@@ -19,14 +19,15 @@ export default function RegisterPage() {
       setError("Please fill in all fields.");
       return;
     }
+    if (password.length < 6) {
+      setError("Password must be at least 6 characters.");
+      return;
+    }
     setError("");
     setLoading(true);
     try {
-      // Mock network latency
-      await new Promise((resolve) => setTimeout(resolve, 800));
-      await register(email, name);
-    } catch (err) {
-      setError("An error occurred. Please try again.");
+      const result = await register(email, name, password);
+      if (!result.ok) setError(result.error ?? "Registration failed. Please try again.");
     } finally {
       setLoading(false);
     }
@@ -57,7 +58,7 @@ export default function RegisterPage() {
                 {error}
               </div>
             )}
-            
+
             <div>
               <label htmlFor="name" className="block text-xs font-semibold uppercase tracking-wider text-text-secondary mb-1.5">
                 Full Name
@@ -92,13 +93,14 @@ export default function RegisterPage() {
 
             <div>
               <label htmlFor="password" className="block text-xs font-semibold uppercase tracking-wider text-text-secondary mb-1.5">
-                Password
+                Password <span className="text-text-secondary/60 normal-case">(min. 6 characters)</span>
               </label>
               <input
                 id="password"
                 name="password"
                 type="password"
                 required
+                minLength={6}
                 value={password}
                 onChange={(e) => setPassword(e.target.value)}
                 placeholder="••••••••"
