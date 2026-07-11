@@ -491,99 +491,127 @@ export const curriculumData: Week[] = [
   },
   {
     id: 3,
-    title: "DevOps & Deployment",
-    description: "Launch servers on public clouds, automate deployment pipelines, and configure health checking.",
+    title: "Docker + Cloud Deployment + CI/CD",
+    description: "Containerise your app locally with Docker, launch it on AWS EC2, secure it with HTTPS, store files in S3, and automate every future deploy with GitHub Actions.",
     lessons: [
       {
         id: "w3-d1",
         day: 1,
-        title: "AWS Core Services (EC2 & VPC)",
-        description: "Provision virtual hardware. Configure security groups, routing tables, and launch an EC2 instance within an isolated VPC subnetwork.",
-        duration: 60,
-        videos: [{ id: "3hLmDS179YE" }],
+        title: "Docker & Docker Compose (Containerise your app)",
+        description: "Learn the fundamentals of containerisation. Write a Dockerfile for your Week 2 API, spin up PostgreSQL alongside it with Docker Compose, and run the whole stack locally in isolated containers.",
+        duration: 90,
+        videos: [{ id: "SXwC9fSwct8" }],
+        resources: [
+          { name: "Docker Getting Started", url: "https://docs.docker.com/get-started/" },
+          { name: "Docker Compose Overview", url: "https://docs.docker.com/compose/" },
+          { name: "roadmap.sh Docker Guide", url: "https://roadmap.sh/docker" }
+        ]
+      },
+      {
+        id: "w3-d2",
+        day: 2,
+        title: "Deploying to AWS EC2 (Server + Networking)",
+        description: "Provision your first cloud server. Launch an EC2 instance inside a VPC, configure security groups to allow HTTP/HTTPS/SSH, and connect to it over SSH from your local machine.",
+        duration: 75,
+        videos: [{ id: "-FKQwXtrSSQ" }],
         resources: [
           { name: "AWS EC2 Getting Started", url: "https://aws.amazon.com/ec2/getting-started/" },
           { name: "roadmap.sh AWS Guide", url: "https://roadmap.sh/aws" }
         ]
       },
       {
-        id: "w3-d2",
-        day: 2,
-        title: "DNS & Mail Setup (Route53 & SES)",
-        description: "Configure network names. Register domain paths, create record types (A, CNAME, MX), and authorize outbound email protocols using SES.",
-        duration: 45,
-        videos: [{ id: "7K0Z65b21XU" }],
-        resources: [
-          { name: "Route53 DNS Overview", url: "https://docs.aws.amazon.com/Route53/latest/DeveloperGuide/Welcome.html" }
-        ]
-      },
-      {
         id: "w3-d3",
         day: 3,
-        title: "Cloud Object Storage (S3)",
-        description: "Configure static assets. Create S3 buckets, set read/write IAM policies, and integrate cloud uploads directly from application scripts.",
-        duration: 45,
-        videos: [{ id: "e6w9LwZJFIA" }],
+        title: "DNS, HTTPS & Nginx Reverse Proxy",
+        description: "Make your server reachable by a real domain. Point a domain to your EC2 IP, install Nginx as a reverse proxy in front of your Docker container, and obtain a free SSL certificate with Let's Encrypt (Certbot).",
+        duration: 75,
+        videos: [{ id: "ofBFl4M4BFk" }],
         resources: [
-          { name: "AWS S3 User Guide", url: "https://docs.aws.amazon.com/AmazonS3/latest/userguide/Welcome.html" }
+          { name: "Nginx Beginner's Guide", url: "https://nginx.org/en/docs/beginners_guide.html" },
+          { name: "Certbot (Let's Encrypt) Docs", url: "https://certbot.eff.org/instructions" },
+          { name: "Route53 DNS Overview", url: "https://docs.aws.amazon.com/Route53/latest/DeveloperGuide/Welcome.html" }
         ]
       },
       {
         id: "w3-d4",
         day: 4,
-        title: "GitHub Actions CI/CD Pipelines",
-        description: "Automate delivery. Construct YAML configurations, declare jobs, run test runner suites on commit, and trigger secure release procedures.",
+        title: "File Storage with AWS S3 (+ IAM Basics)",
+        description: "Store and serve user-uploaded files from the cloud. Create an S3 bucket, write scoped IAM policies for read/write access, and integrate file uploads from your API using the AWS SDK.",
         duration: 60,
-        videos: [{ id: "R8_veQiYBhI" }],
+        videos: [{ id: "tfU0JEZjcsg" }],
         resources: [
-          { name: "GitHub Actions Quickstart", url: "https://docs.github.com/en/actions/quickstart" }
+          { name: "AWS S3 User Guide", url: "https://docs.aws.amazon.com/AmazonS3/latest/userguide/Welcome.html" },
+          { name: "IAM Best Practices", url: "https://docs.aws.amazon.com/IAM/latest/UserGuide/best-practices.html" }
         ]
       },
       {
         id: "w3-d5",
         day: 5,
-        title: "Process Monitoring with Monit",
-        description: "Protect service runtimes. Configure Monit to supervise daemon processes, monitor RAM/CPU limits, and restart crashed node instances automatically.",
-        duration: 45,
-        videos: [{ id: "tO7Pcr_QpCo" }],
+        title: "GitHub Actions CI/CD Pipeline",
+        description: "Automate every deployment. Write a GitHub Actions workflow that runs linting on every push and SSH-deploys your Docker container to EC2 automatically on merge to main.",
+        duration: 75,
+        videos: [{ id: "R8_veQiYBjI" }],
         resources: [
-          { name: "Monit Documentation", url: "https://mmonit.com/monit/documentation/" }
+          { name: "GitHub Actions Quickstart", url: "https://docs.github.com/en/actions/quickstart" },
+          { name: "GitHub Actions – Deploy to EC2", url: "https://docs.github.com/en/actions/deployment/deploying-to-your-cloud-provider/deploying-to-amazon-elastic-container-service" }
+        ]
+      },
+      {
+        id: "w3-d6",
+        day: 6,
+        title: "PM2 Process Management + AWS CloudWatch",
+        description: "Keep your server alive and observable. Use PM2 to manage your Node process (auto-restart on crash, startup scripts) and stream logs to AWS CloudWatch for centralised monitoring.",
+        duration: 60,
+        videos: [
+          { id: "4bS7KS_s8Go" }, // PM2 section
+          { id: "HRJnhzSSFtk" }  // CloudWatch Logs
+        ],
+        resources: [
+          { name: "PM2 Documentation", url: "https://pm2.keymetrics.io/docs/usage/quick-start/" },
+          { name: "AWS CloudWatch Getting Started", url: "https://docs.aws.amazon.com/AmazonCloudWatch/latest/monitoring/GettingStarted.html" }
         ]
       }
     ],
     checkpoints: [
       {
         id: "w3-cp1",
-        title: "Cloud Deployment",
-        description: "Deploy client-server suites on cloud hardware.",
-        projectIdea: "Launch your application to a live EC2 server, set up an Nginx reverse proxy, request Let's Encrypt certificates, and map a live domain.",
-        requiredLessonIds: ["w3-d1", "w3-d2", "w3-d3"]
+        title: "Containerised Local Stack",
+        description: "Run your full app — API + database — inside Docker containers.",
+        projectIdea: "Write a Dockerfile for your Week 2 API and a docker-compose.yml that starts both the API and a PostgreSQL container. The app must start with a single `docker compose up` command.",
+        requiredLessonIds: ["w3-d1"]
       },
       {
         id: "w3-cp2",
-        title: "CI/CD Automations",
-        description: "Enforce automated test execution and pipeline delivery.",
-        projectIdea: "Set up a GitHub Actions workflow that executes linting, code testing, and then deploys changes over SSH to your live cloud server.",
-        requiredLessonIds: ["w3-d4"]
+        title: "Live Server with HTTPS",
+        description: "Deploy your Docker container to EC2 and secure it with a real SSL certificate.",
+        projectIdea: "Deploy your Dockerised app to EC2, install Nginx as a reverse proxy, point a domain at the server, and get an SSL certificate via Certbot so the app is live at https://yourdomain.com.",
+        requiredLessonIds: ["w3-d2", "w3-d3"]
       },
       {
         id: "w3-cp3",
+        title: "CI/CD Automations",
+        description: "Enforce automated linting and hands-free deployment on every push.",
+        projectIdea: "Set up a GitHub Actions workflow that runs ESLint on every push and automatically SSH-deploys the latest Docker image to your EC2 instance on every merge to main.",
+        requiredLessonIds: ["w3-d4", "w3-d5"]
+      },
+      {
+        id: "w3-cp4",
         title: "Monitoring & Reliability",
-        description: "Establish self-healing configurations and alert handlers.",
-        projectIdea: "Integrate a Monit runtime monitor checking Express server memory limits. Test automation triggers by forcing a mock memory leak script.",
-        requiredLessonIds: ["w3-d5"]
+        description: "Keep the server alive and observable after crashes.",
+        projectIdea: "Configure PM2 to run your app and auto-restart it on crashes. Forward PM2 logs to AWS CloudWatch and verify you can see live log output in the CloudWatch console.",
+        requiredLessonIds: ["w3-d6"]
       }
     ],
     weekProject: {
-      title: "Week 3 Capstone — Live Deployed App",
-      description: "Deploy your Week 2 backend (or a new project) to a live EC2 server with SSL, a custom domain, S3 file storage, and an automated GitHub Actions pipeline. Share a public URL as your deliverable.",
+      title: "Week 3 Capstone — Docker on EC2, Live & Automated",
+      description: "Deploy your Week 2 project as a Docker container on AWS EC2 with a custom domain, HTTPS, S3 file storage, and a fully automated GitHub Actions CI/CD pipeline. A live public URL is your deliverable.",
       deliverables: [
-        "Application running live on an AWS EC2 instance",
-        "Custom domain configured via Route53 with HTTPS (Let's Encrypt SSL)",
-        "Nginx reverse proxy routing traffic to your Node server",
+        "Dockerfile + docker-compose.yml committed to your repository",
+        "Application running live on an AWS EC2 instance via Docker",
+        "Custom domain with HTTPS (Nginx + Let's Encrypt SSL certificate)",
         "At least one S3 bucket used for file or static asset storage",
-        "GitHub Actions CI/CD pipeline: triggers on push, deploys to EC2 over SSH",
-        "Process monitor (Monit or PM2) keeping the server alive",
+        "GitHub Actions CI/CD pipeline: lints on every push, auto-deploys to EC2 on merge to main",
+        "PM2 keeping the Node process alive; logs visible in AWS CloudWatch",
         "Live URL submitted as proof of deployment"
       ],
       githubRequired: true,
